@@ -78,3 +78,41 @@
 	</section>
 </body>
 </html>
+
+<?php
+if(isset($_POST['nome']))
+{
+    $nome = addslashes($_POST['nome']);
+    $descricao = addslashes($_POST['desc']);
+    $fotos = array();
+    if(isset($_FILES['foto']))
+    {
+        for($i=0;$i < count($_FILES['foto']['name']);$i++) //
+        {
+            //SALVANDO DENTRO DA PASTA IMAGENS
+            $nome_arquivo = md5($_FILES['foto']['name'][$i].rand(1,999)).'jpg';
+            move_uploaded_file($_FILES['foto']['tmp_name'][$i],'imagens/'.$nome_arquivo);
+            //SALVAR NOMES PARA ENVIAR PARA O BANCO
+            array_push($fotos, $nome_arquivo);
+        }
+    }
+
+        //VERIFICAR SE FORAM PREENCHIDOS TODOS OS CAMPOS
+        if(!empty($nome) && !empty($descricao))
+        {
+            require 'classes/Produto_class.php';
+            $p = new Produto_class('formulario_produtos','localhost','root','');
+            $p->enviarProduto($nome, $descricao, $fotos);
+            ?>
+                <script type="text/javascript">
+                    alert('Produto cadastrado com sucesso')
+                </script>
+            <?php
+        }else
+            ?>
+            <script type="text/javascript">
+                alert('Preencha os campos obrigatórios')
+            </script>
+        <?php
+
+}

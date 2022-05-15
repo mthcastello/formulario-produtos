@@ -35,12 +35,28 @@
 </head>
 <body>
 	<section>
-		<a href="exibir_produto.php">
-			<div>
-				<img src="imagens/295d5e781ffd2f97a73d47468c7c1775.jpg">
-				<h2>Calça Jeans</h2>
-			</div>
-		</a>
+        <?php
+        require 'classes/Produto_class.php';
+        $p = new Produto_class('formulario_produtos','localhost','root','');
+        $dadosProduto = $p->buscarProdutos();
+        if (empty($dadosProduto))
+        {
+            echo 'Ainda não há produtos cadastrados';
+        }else
+        {
+            foreach ($dadosProduto as $value)
+            {
+                ?>
+                <a href="exibir_produto.php?id=<?php echo $value ['id_produto']?>">
+                <div>
+                    <img src="imagens/<?php echo $value['foto_capa']; ?>">
+                    <h2><?php echo $value['nome_produto'] ?></h2>
+                </div>
+            </a>
+                <?php
+            }
+        }
+        ?>
 	</section>
 </body>
 </html>

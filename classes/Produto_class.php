@@ -49,19 +49,66 @@ class Produto_class
 
 
     }
-
+    //SELECT DE TODODS OS PRODUTOS PARA EXIBIR NA PAGINA PRODUTOS
     public function buscarProdutos() // todos os produtos
     {
+        $cmd = $this->pdo->query('SELECT *,
+       (SELECT nome_imagem from imagens where fk_id_produto = produtos.id_produto LIMIT 1) 
+           as foto_capa 
+            FROM produtos');
 
+        $cmd->execute();
+
+
+        if($cmd-> rowCount() > 0)
+        {
+            $dados = $cmd->fetchAll(PDO::FETCH_ASSOC);
+
+        }else
+        {
+                $dados = array();
+        }
+        return $dados;
     }
 
-    public function buscarProdutoPorId($id) // apenas um produto
+    public function buscarProdutosPorId($id) // apenas um produto
     {
+        $cmd = $this->pdo->prepare('SELECT * FROM produtos where id_produto = :id');
 
+        $cmd->bindValue(':id',$id);
+
+        $cmd->execute();
+
+
+        if($cmd-> rowCount() > 0)
+        {
+            $dados = $cmd->fetch(PDO::FETCH_ASSOC);
+
+        }else
+        {
+            $dados = array();
+        }
+        return $dados;
     }
 
     public function buscarImagensPorId($id)
     {
 
+        $cmd = $this->pdo->prepare('SELECT nome_imagem FROM imagens WHERE fk_id_produto = :id');
+
+        $cmd->bindValue(':id',$id);
+
+        $cmd->execute();
+
+
+        if($cmd-> rowCount() > 0)
+        {
+            $dados = $cmd->fetchAll(PDO::FETCH_ASSOC);
+
+        }else
+        {
+            $dados = array();
+        }
+        return $dados;
     }
 }

@@ -5,9 +5,10 @@
 	<style>
 	body{
 		font-family: arial;
+        ;
 	}
 	section{
-		background-color: rgb(123,104,238,.4);
+		background-color: rgb(180,180,180,180);
 		width: 70%;
 		margin: auto;
 	}
@@ -33,7 +34,7 @@
 	#botao{
 		margin-bottom: 10px;
 		width: 50%;
-		background-color: rgba(0,0,0,.8);
+		background-color: rgba(0,0,0,255);
 		color: white;
 		height: 40px;
 		cursor: pointer;
@@ -49,17 +50,17 @@
 	}
 
 	a{
-		background-color: rgb(0,255,127);
-		display: block;
-		width: 220px;
+		background-color: rgb(0,0,0,255);
+        display: block;
+        width: 220px;
 		height: 50px;
-		color: black;
+		color: whitesmoke;
 		text-decoration: none;
 		float: right;
 		text-align: center;
 		line-height: 50px;
 		margin: 20px;
-		border: 1px solid rgba(0,0,0,.2);
+		border: 1px solid rgba(0,0,0,0);
 	}
 	</style>
 </head>
